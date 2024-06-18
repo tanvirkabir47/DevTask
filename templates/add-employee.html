@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Project - DevTask {% endblock title %}
+
+
+{% block main %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="add-employee">
+					<div class="add-employee-header">
+						<h2>Create your Employee account !</h2>
+						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, magni. Eaque ratione quis commodi eveniet quaerat.</p>
+					</div>
+					<form>
+
+					</form>
+				</div>
+			</div>
+
+			<div class="col-12">
+				<div class="add-employee-btn">
+					<button data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Employee</button>
+				</div>
+				<div class="employee-list">
+					<div class="table-responsive">
+						<table class="table table-responsive-md">
+							<thead>
+								<tr>
+									<th>Id</th>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Position</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><strong>542</strong></td>
+									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
+									<td>hello@example.com</td>
+									<td>Django Dev</td>
+									<td>
+										<div class="d-flex">
+											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
+											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><strong>542</strong></td>
+									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
+									<td>hello@example.com</td>
+									<td>Django Dev</td>
+									<td>
+										<div class="d-flex">
+											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
+											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><strong>542</strong></td>
+									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
+									<td>hello@example.com</td>
+									<td>Django Dev</td>
+									<td>
+										<div class="d-flex">
+											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
+											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td><strong>542</strong></td>
+									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
+									<td>hello@example.com</td>
+									<td>Django Dev</td>
+									<td>
+										<div class="d-flex">
+											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
+											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h3 class="add-head">Add New Employee</h3>
+			  <button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+				<i class="fa-solid fa-xmark"></i>
+			  </button>
+			</div>
+			<div class="modal-body">
+			 <div class="employee-create-details">
+				<form>
+					<div class="">
+						<label for="" class="form-label">Full name</label>
+						<input type="text" placeholder="Enter Full Name.." >
+					</div>
+					<div class="">
+						<label for="" class="form-label">Email</label>
+						<input type="email" placeholder="Enter E-mail.." >
+					</div>
+					<div class="">
+						<label for="" class="form-label">Employee Position</label>
+						<select name="" id="">
+							<option value="">UI/UX Designer</option>
+							<option value="">Frontend Dev</option>
+							<option value="">Backend Dev</option>
+						</select>
+					</div>
+					<div class="position-relative">
+						<label for="" class="form-label">Password ( Generated )</label>
+						<input type="text" id="password">
+						<button type="button" class="copy-btn" id="copy-btn"><i class="fa-solid fa-copy"></i></button>
+					</div>
+					<div class="">
+						<button class="primary-button" type="submit">Create</button>
+					</div>
+				</form>
+			 </div>
+		  </div>
+		</div>
+	  </div>
+
+	{% endblock main %}
+
+
+
+	{% block script %}
+	  
+		<script>
+			function generatePassword(length) {
+				const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
+				let password = "";
+				for (let i = 0; i < length; i++) {
+					const randomIndex = Math.floor(Math.random() * charset.length);
+					password += charset[randomIndex];
+				}
+				return password;
+			}
+
+			function copyToClipboard(text) {
+				if (navigator.clipboard && window.isSecureContext) {
+					return navigator.clipboard.writeText(text);
+				} else {
+					let textArea = document.createElement("textarea");
+					textArea.value = text;
+					textArea.style.position = "absolute";
+					textArea.style.left = "-999999px";
+					document.body.appendChild(textArea);
+					textArea.focus();
+					textArea.select();
+					try {
+						document.execCommand('copy');
+					} catch (err) {
+						console.error('Unable to copy to clipboard', err);
+					}
+					document.body.removeChild(textArea);
+				}
+			}
+
+			document.addEventListener('DOMContentLoaded', () => {
+				const passwordInput = document.getElementById('password');
+				passwordInput.value = generatePassword(16);
+
+				const copyBtn = document.getElementById('copy-btn');
+				copyBtn.addEventListener('click', () => {
+					copyToClipboard(passwordInput.value).then(() => {
+						const originalText = copyBtn.innerHTML;
+						copyBtn.innerHTML = 'Copied!';
+						setTimeout(() => {
+							copyBtn.innerHTML = originalText;
+						}, 4000);
+					}).catch(err => {
+						console.error('Could not copy text: ', err);
+					});
+				});
+			});
+		</script>
+
+	{% endblock script %}

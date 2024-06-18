@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Feed - DevTask {% endblock title %}
+
+
+{% block main %}
+	  	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8">
+				<div class="home-post-sec">
+					<div class="add-post-sec">
+						<img src="{% static 'images/tareq.png' %}" alt="">
+						<div class="w-100">
+							<button data-bs-toggle="modal" data-bs-target="#exampleModal">Write Post here...</button>
+						</div>
+					</div>
+
+					<!-- All post show -->
+
+					<div class="all-post-main">
+						<div class="single-post-home">
+							<div class="post-author">
+								<img src="{% static 'images/tareq.png' %}" alt="">
+								<div class="d-flex justify-content-between w-100">
+									<div>
+										<h3>Abu Tareq</h3>
+										<p>Project Manager</p>
+										<p>1d ago</p>
+									</div>
+									<div class="ellipse-btn position-relative">
+										<button id="post-edit-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+										<div id="post-edit">
+											<ul>
+												<li><a href=""><i class="fa-regular fa-pen-to-square"></i> Edit Post</a></li>
+												<li><a href=""><i class="fa-solid fa-trash"></i> Delete Post</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="post-body">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<img src="{% static 'images/pexels-alxs-919734.jpg' %}" alt="">
+							</div>
+							<div class="post-like-comments">
+								<div class="post-like">
+									<i class="fa-solid fa-heart"></i>
+									<span>12</span>
+								</div>
+								<div class="post-comment">
+									<span>Comments:</span>
+									<span>12</span>
+								</div>
+							</div>
+							<div class="write-comments">
+								<form>
+									<div class="write-com-input">
+										<img src="{% static 'images/tareq.png' %}" alt="">
+										<div class="w-100 position-relative">
+											<textarea name="" id="" class="write-message-input" placeholder="Write a comment.." rows="1" contenteditable></textarea>
+											<button type="submit"><i class="fa-solid fa-arrow-up"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="all-comments">
+								<h2>Comments</h2>
+								<div class="single-comment">
+									<img src="{% static 'images/mahiuddin.png' %}" alt="">
+									<div class="comment-text">
+										<div>
+											<h3>Mahiuddin Dev</h3>
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+										</div>
+										<div>
+											<span>20h</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="single-post-home">
+							<div class="post-author">
+								<img src="{% static 'images/tareq.png' %}" alt="">
+								<div class="d-flex justify-content-between w-100">
+									<div>
+										<h3>Abu Tareq</h3>
+										<p>Project Manager</p>
+										<p>1d ago</p>
+									</div>
+									<div class="ellipse-btn position-relative">
+										<button id="post-edit-btn"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+										<div id="post-edit">
+											<ul>
+												<li><a href=""><i class="fa-regular fa-pen-to-square"></i> Edit Post</a></li>
+												<li><a href=""><i class="fa-solid fa-trash"></i> Delete Post</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="post-body">
+								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<img src="{% static 'images/pexels-alxs-919734.jpg' %}" alt="">
+							</div>
+							<div class="post-like-comments">
+								<div class="post-like">
+									<i class="fa-solid fa-heart"></i>
+									<span>12</span>
+								</div>
+								<div class="post-comment">
+									<span>Comments:</span>
+									<span>12</span>
+								</div>
+							</div>
+							<div class="write-comments">
+								<form>
+									<div class="write-com-input">
+										<img src="{% static 'images/tareq.png' %}" alt="">
+										<div class="w-100 position-relative">
+											<textarea name="" id="" class="write-message-input" placeholder="Write a comment.." rows="1" contenteditable></textarea>
+											<button type="submit"><i class="fa-solid fa-arrow-up"></i></button>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div class="all-comments">
+								<h2>Comments</h2>
+								<div class="single-comment">
+									<img src="{% static 'images/mahiuddin.png' %}" alt="">
+									<div class="comment-text">
+										<div>
+											<h3>Mahiuddin Dev</h3>
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+										</div>
+										<div>
+											<span>20h</span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-4">sadf</div>
+		</div>
+	</div>
+
+
+
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <div class="modal-profile">
+				 <img src="images/tareq.png" alt="">
+				 <div>
+					<h3>Abu Tareq</h3>
+					<p>Project Manager</p>
+				 </div>
+			  </div>
+			  <button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+				<i class="fa-solid fa-xmark"></i>
+			  </button>
+			</div>
+			<div class="modal-body">
+			  <div class="post-home">
+				<form>
+					<textarea name="" id="" placeholder="What do you to talk about?"></textarea>
+					<input type="file">
+				</form>
+			  </div>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="primary-button">Post</button>
+			</div>
+		  </div>
+		</div>
+	  </div>
+
+	{% endblock main %}
+
+	
+
+{% block script %}
+	  
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			autosize();
+			function autosize() {
+				var texts = document.querySelectorAll('.write-message-input');
+				texts.forEach(function(text) {
+					text.setAttribute('rows', 1);
+					resize(text);
+				});
+	
+				texts.forEach(function(text) {
+					text.addEventListener('input', function() {
+						resize(text);
+					});
+				});
+			}
+	
+			function resize(text) {
+				text.style.height = 'auto';
+				text.style.height = text.scrollHeight + 'px';
+			}
+		});
+	</script>
+
+{% endblock script %}
+
