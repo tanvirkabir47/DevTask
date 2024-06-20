@@ -18,6 +18,7 @@ def signup_view(request):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
+        company_name = request.POST.get('company_name')
         password = request.POST.get('password')
         password2 = request.POST.get('password2')
         
@@ -30,6 +31,7 @@ def signup_view(request):
                 first_name=first_name,
                 last_name=last_name,
                 email=email,
+                company=company_name,
                 password=password,
                 username=email,
             )
@@ -39,13 +41,13 @@ def signup_view(request):
             user = authenticate(request, username=email, password=password)
             if user is not None:
                 login(request, user)
-                messages.success(request, 'User created successfully!')
+                messages.success(request, 'Owner account created successfully!')
                 return redirect('home')
             else:
                 error_messages = "No User Found !"
         else:
             error_messages = "Passwords doesn't match"
-    return render(request, 'signup.html')
+    return render(request, 'signup.html', {'error_messages': error_messages})
 
 
 def login_view(request):
@@ -63,13 +65,13 @@ def login_view(request):
         if user is not None:
             login(request, user)
             messages.success(request, 'Logged in successfully')
-            return redirect('signup')
+            return redirect('home')
         else:
             error_messages = "Email or password incorrect"
             
-    return render(request, 'login.html')
+    return render(request, 'login.html', {'error_messages': error_messages})
 
 def logout_page(request):
     logout(request)
     messages.success(request, 'Logged out successfully')
-    return redirect('home')
+    return redirect('login')

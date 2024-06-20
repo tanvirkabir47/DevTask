@@ -20,10 +20,18 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="auth-header">
-						<a href="./index.html" class="m-auto">
+						<a href="{% url 'home' %}" class="m-auto">
 							<h2>Dev<span>Task</span></h2>
 						</a>
 					</div>
+
+					{% if error_messages %}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert" style="max-width: 600px; margin: 20px auto;">
+							<strong>{{ error_messages }}</strong>
+							<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>
+					{% endif %}
+
 					<div class="auth-main">
 						<h2>Signup as a Company owner !</h2>
 						<form method="POST">
@@ -31,27 +39,27 @@
 							<div class="">
 								<div class="single-input">
 									<label for="">First Name</label>
-									<input type="text" name="first_name" placeholder="Enter First name">
+									<input type="text" name="first_name" placeholder="Enter First name" required>
 								</div>
 								<div class="single-input">
 									<label for="">Last Name</label>
-									<input type="text" name="last_name" placeholder="Enter Last name">
+									<input type="text" name="last_name" placeholder="Enter Last name" required>
 								</div>
 								<div class="single-input">
 									<label for="">Email</label>
-									<input type="email" name="email" placeholder="Enter email">
+									<input type="email" name="email" placeholder="Enter email" required>
 								</div>
 								<div class="single-input">
 									<label for="">Company Name</label>
-									<input type="text" name="company_name" placeholder="Enter Company Name">
+									<input type="text" name="company_name" placeholder="Enter Company Name" required>
 								</div>
 								<div class="single-input">
 									<label for="">Password</label>
-									<input type="password" name="password" placeholder="Enter password">
+									<input type="password" name="password" placeholder="Enter password" required>
 								</div>
 								<div class="single-input">
 									<label for="">Confirm Password</label>
-									<input type="password" name="password2" placeholder="Enter Confirm password">
+									<input type="password" name="password2" placeholder="Enter Confirm password" required>
 								</div>
 								<div class="mt-2 d-flex gap-2 single-input">
 									<label>Already have an account?</label>
