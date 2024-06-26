@@ -41,7 +41,7 @@
 
 							{% if request.user.is_authenticated %}
 								<div class="header-profile">
-									<img src="{% static 'images/user-profile.png' %}" id="profile-open-btn" alt="">
+									<img src="{{ request.user.image.url }}" id="profile-open-btn" alt="">
 									<div id="profile-div">
 										<ul>
 											<li><a href="./my-account.html"><i class="fa-regular fa-user"></i> My Account</a></li>
