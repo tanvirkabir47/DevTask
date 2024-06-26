@@ -10,6 +10,7 @@ class User(AbstractUser):
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='owner')
     image = models.ImageField(upload_to='profile/', default='../static/images/tareq.png')
     company = models.CharField(max_length=255)
+    position = models.CharField(max_length=255, blank=True, null=True)
     
 
     def __str__(self):

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from account.models import User
 
 # Create your views here.
 @login_required(login_url='signup')
@@ -12,7 +13,9 @@ def project(request):
 
 
 def add_employee(request):
-    return render(request,'add-employee.html')
+    users = User.objects.filter(role = 'employee', company=request.user.company)
+    print(users)
+    return render(request,'add-employee.html', {'users': users})
 
 
 def task_view(request):

@@ -37,54 +37,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td><strong>542</strong></td>
-									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
-									<td>hello@example.com</td>
-									<td>Django Dev</td>
-									<td>
-										<div class="d-flex">
-											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
-											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>542</strong></td>
-									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
-									<td>hello@example.com</td>
-									<td>Django Dev</td>
-									<td>
-										<div class="d-flex">
-											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
-											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>542</strong></td>
-									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
-									<td>hello@example.com</td>
-									<td>Django Dev</td>
-									<td>
-										<div class="d-flex">
-											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
-											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td><strong>542</strong></td>
-									<td><div class="d-flex align-items-center"><img src="images/tareq.png" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">Jackson</span></div></td>
-									<td>hello@example.com</td>
-									<td>Django Dev</td>
-									<td>
-										<div class="d-flex">
-											<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
-											<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
-										</div>
-									</td>
-								</tr>
+
+								{% for user in users %}
+								  
+									<tr>
+										<td><strong>{{ user.id }}</strong></td>
+										<td><div class="d-flex align-items-center"><img src="{{ user.image.url }}" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">{{ user.first_name }} {{ user.last_name }}</span></div></td>
+										<td>{{ user.email }}</td>
+										<td>{{ user.position }}</td>
+										<td>
+											<div class="d-flex">
+												<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
+												<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+											</div>
+										</td>
+									</tr>
+								{% endfor %}
 							</tbody>
 						</table>
 					</div>
@@ -108,26 +76,31 @@
 			</div>
 			<div class="modal-body">
 			 <div class="employee-create-details">
-				<form>
+				<form method="POST" action="{% url 'create-employee' %}">
+					{% csrf_token %}
 					<div class="">
-						<label for="" class="form-label">Full name</label>
-						<input type="text" placeholder="Enter Full Name.." >
+						<label for="" class="form-label">First Name</label>
+						<input type="text" placeholder="Enter Full Name.."  name="first_name" required>
+					</div>
+					<div class="">
+						<label for="" class="form-label">Last Name</label>
+						<input type="text" placeholder="Enter Full Name.."  name="last_name" required>
 					</div>
 					<div class="">
 						<label for="" class="form-label">Email</label>
-						<input type="email" placeholder="Enter E-mail.." >
+						<input type="email" placeholder="Enter E-mail.." name="email" required>
 					</div>
 					<div class="">
 						<label for="" class="form-label">Employee Position</label>
-						<select name="" id="">
-							<option value="">UI/UX Designer</option>
-							<option value="">Frontend Dev</option>
-							<option value="">Backend Dev</option>
+						<select name="employee_position" id="" required>
+							<option value="UI/UX Designer">UI/UX Designer</option>
+							<option value="Frontend Dev">Frontend Dev</option>
+							<option value="Backend Dev">Backend Dev</option>
 						</select>
 					</div>
 					<div class="position-relative">
 						<label for="" class="form-label">Password ( Generated )</label>
-						<input type="text" id="password">
+						<input type="text" id="password" name="password">
 						<button type="button" class="copy-btn" id="copy-btn"><i class="fa-solid fa-copy"></i></button>
 					</div>
 					<div class="">
