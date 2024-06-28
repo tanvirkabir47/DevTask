@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %} Project - DevTask {% endblock title %}
+{% block title %} Employee - DevTask {% endblock title %}
 
 
 {% block main %}
@@ -39,7 +39,6 @@
 							<tbody>
 
 								{% for user in users %}
-								  
 									<tr>
 										<td><strong>{{ user.id }}</strong></td>
 										<td><div class="d-flex align-items-center"><img src="{{ user.image.url }}" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">{{ user.first_name }} {{ user.last_name }}</span></div></td>
@@ -47,8 +46,12 @@
 										<td>{{ user.position }}</td>
 										<td>
 											<div class="d-flex">
-												<a href="" class="me-1 employee-edit"><i class="fa fa-pencil"></i></a>
-												<a href="" class="employee-delete"><i class="fa fa-trash"></i></a>
+												<a data-bs-toggle="modal" data-bs-target="#examplModal{{user.id}}" class="me-1 employee-edit" style="cursor: pointer;">
+													<i class="fa fa-pencil"></i>
+												</a>
+												<a data-bs-toggle="modal" data-bs-target="#exampleModal{{user.id}}" class="employee-delete" style="cursor: pointer;">
+													<i class="fa fa-trash"></i>
+												</a>
 											</div>
 										</td>
 									</tr>
@@ -64,7 +67,7 @@
 
 
 	  
-	  <!-- Modal -->
+	  <!-- Employee Create Modal -->
 	  <div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
 		<div class="modal-dialog modal-dialog-centered">
 		  <div class="modal-content">
@@ -111,6 +114,84 @@
 		  </div>
 		</div>
 	  </div>
+	  </div>
+
+
+
+	  <!-- Employee Remove Modal -->
+	   {% for user in users %}
+
+		<div class="modal fade" id="exampleModal{{user.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="add-head">Remove Employee</h3>
+						<button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="employee-create-details">
+							<label>Remove "{{user.first_name}} {{user.last_name}}" from your company ?</label>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+						<a href="{% url 'delete-employee' user.id %}" class="btn btn-sm btn-danger">Remove</a>
+					</div>
+			 	</div>
+			</div>
+		</div>
+		{% endfor %}
+
+
+	  <!-- Employee Update Modal -->
+	   {% for user in users %}
+
+		<div class="modal fade" id="examplModal{{user.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h3 class="add-head">Update Employee Data</h3>
+						<button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+							<i class="fa-solid fa-xmark"></i>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="employee-create-details">
+							<form method="POST" action="{% url 'update-employee' user.id %}">
+								{% csrf_token %}
+								<div class="">
+									<label for="" class="form-label">First Name</label>
+									<input type="text" value="{{user.first_name}}"  name="first_name" required>
+								</div>
+								<div class="">
+									<label for="" class="form-label">Last Name</label>
+									<input type="text" value="{{user.last_name}}"  name="last_name" required>
+								</div>
+								<div class="">
+									<label for="" class="form-label">Email</label>
+									<input type="email" value="{{user.email}}" name="email" required>
+								</div>
+								<div class="">
+									<label for="" class="form-label">Employee Position</label>
+									<select name="employee_position" value="{{user.position}}" required>
+										<option value="UI/UX Designer" {% if user.position == 'UI/UX Designer' %}selected{% endif %}>UI/UX Designer</option>
+        								<option value="Frontend Dev" {% if user.position == 'Frontend Dev' %}selected{% endif %}>Frontend Dev</option>
+										<option value="Backend Dev" {% if user.position == 'Backend Dev' %}selected{% endif %}>Backend Dev</option>
+									</select>
+								</div>
+								<div class="">
+									<button class="primary-button" type="submit">Update</button>
+								</div>
+							</form>
+						</div>
+					</div>
+			 	</div>
+			</div>
+		</div>
+
+	  {% endfor %}
 
 	{% endblock main %}
 

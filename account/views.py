@@ -84,7 +84,6 @@ def logout_page(request):
 
 def create_employee(request):
     
-    
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -134,3 +133,29 @@ def create_employee(request):
         return redirect('employee')
     
     return render('add-employee.html')
+
+
+def update_employee(request, id):
+    update_employee = User.objects.get(id=id)
+    
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        employee_position = request.POST.get('employee_position')
+        
+        update_employee.first_name=first_name
+        update_employee.last_name=last_name
+        update_employee.email=email
+        update_employee.position=employee_position
+        
+        update_employee.save()
+        messages.success(request, 'Employee Update successfully!')
+    
+    return redirect('employee')
+
+def delete_employee(request, id):
+    remove_employee = User.objects.get(id = id)
+    remove_employee.delete()
+    
+    return redirect('employee')

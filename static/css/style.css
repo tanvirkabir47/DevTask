@@ -551,6 +551,7 @@ header{
     padding: 2px 6px;
     color: #fff;
     margin-left: 5px;
+    cursor: pointer !important;
 }
 .employee-list .employee-edit{
     background: #38434f;
