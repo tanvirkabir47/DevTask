@@ -155,7 +155,7 @@ def update_employee(request, id):
     return redirect('employee')
 
 def delete_employee(request, id):
-    remove_employee = User.objects.get(id = id)
+    remove_employee = User.objects.get(id=id)
     remove_employee.delete()
     
     return redirect('employee')
