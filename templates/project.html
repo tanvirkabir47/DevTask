@@ -27,62 +27,30 @@
 							</div>
 
 							<div class="project-list">
-								<div class="single-project-list">
-									<h2>
-										<a href="">AI Model - Backend</a>
-									</h2>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-									<div class="mt-4">
-										<h4>Employee Worked:</h4>
-										<div class="employee-img-list">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
+								{% if projects %}
+									{% for project in projects %}
+										<div class="single-project-list">
+											<h2>
+												<a href="">{{ project.name }}</a>
+											</h2>
+											<p>{{ project.description }}</p>
+											<div class="mt-4">
+												<h4>Employee Worked:</h4>
+												<div class="employee-img-list">
+													{% for employee in project.employee.all %}
+														<img src="{{ employee.image.url }}" alt="">
+													{% endfor %}
+												</div>
+											</div>
 										</div>
+									{% endfor %}
+								
+								{% else %}
+									<div class="single-project-list">
+										<p>No Project Found !</p>
 									</div>
-								</div>
-								<div class="single-project-list">
-									<h2>
-										<a href="">AI Model - Backend</a>
-									</h2>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-									<div class="mt-4">
-										<h4>Employee Worked:</h4>
-										<div class="employee-img-list">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-										</div>
-									</div>
-								</div>
-								<div class="single-project-list">
-									<h2>
-										<a href="">AI Model - Backend</a>
-									</h2>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-									<div class="mt-4">
-										<h4>Employee Worked:</h4>
-										<div class="employee-img-list">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-										</div>
-									</div>
-								</div>
-								<div class="single-project-list">
-									<h2>
-										<a href="">AI Model - Backend</a>
-									</h2>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-									<div class="mt-4">
-										<h4>Employee Worked:</h4>
-										<div class="employee-img-list">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-											<img src="{% static './images/mahiuddin.png' %}" alt="">
-										</div>
-									</div>
-								</div>
+
+								{% endif %}
 							</div>
 							
 						</div>
@@ -106,21 +74,22 @@
 			</div>
 			<div class="modal-body">
 			 <div class="employee-create-details">
-				<form>
+				<form method="POST" action="{% url 'create-project' %}">
+					{% csrf_token %}
 					<div class="">
 						<label for="" class="form-label">Project Name</label>
-						<input type="text" placeholder="Enter Project Name.." >
+						<input type="text" placeholder="Enter Project Name.." name="title" required>
 					</div>
 					<div class="">
 						<label for="" class="form-label">Project Description</label>
-						<input type="text" placeholder="Enter Project Description.." >
+						<input type="text" placeholder="Enter Project Description.." name="description" required>
 					</div>
 					<div class="">
 						<label for="" class="form-label">Employee Add On Project</label>
-						<select name="" id="" multiple>
-							<option value="">Employee 1</option>
-							<option value="">Employee 2</option>
-							<option value="">Employee 3</option>
+						<select name="employee" id="" multiple>
+							{% for em in employees %}
+								<option value="{{ em.id }}">{{ em.first_name }} {{ em.last_name }}</option>
+							{% endfor %}
 						</select>
 					</div>
 					<div class="">

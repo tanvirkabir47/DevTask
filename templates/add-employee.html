@@ -37,25 +37,30 @@
 								</tr>
 							</thead>
 							<tbody>
-
-								{% for user in users %}
-									<tr>
-										<td><strong>{{ user.id }}</strong></td>
-										<td><div class="d-flex align-items-center"><img src="{{ user.image.url }}" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">{{ user.first_name }} {{ user.last_name }}</span></div></td>
-										<td>{{ user.email }}</td>
-										<td>{{ user.position }}</td>
-										<td>
-											<div class="d-flex">
-												<a data-bs-toggle="modal" data-bs-target="#examplModal{{user.id}}" class="me-1 employee-edit" style="cursor: pointer;">
-													<i class="fa fa-pencil"></i>
-												</a>
-												<a data-bs-toggle="modal" data-bs-target="#exampleModal{{user.id}}" class="employee-delete" style="cursor: pointer;">
-													<i class="fa fa-trash"></i>
-												</a>
-											</div>
-										</td>
-									</tr>
-								{% endfor %}
+								{% if users %}
+									{% for user in users %}
+										<tr>
+											<td><strong>{{ user.id }}</strong></td>
+											<td><div class="d-flex align-items-center"><img src="{{ user.image.url }}" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no">{{ user.first_name }} {{ user.last_name }}</span></div></td>
+											<td>{{ user.email }}</td>
+											<td>{{ user.position }}</td>
+											<td>
+												<div class="d-flex">
+													<a data-bs-toggle="modal" data-bs-target="#examplModal{{user.id}}" class="me-1 employee-edit" style="cursor: pointer;">
+														<i class="fa fa-pencil"></i>
+													</a>
+													<a data-bs-toggle="modal" data-bs-target="#exampleModal{{user.id}}" class="employee-delete" style="cursor: pointer;">
+														<i class="fa fa-trash"></i>
+													</a>
+												</div>
+											</td>
+										</tr>
+									{% endfor %}
+								{% else %}
+								    <tr >
+                                        <td colspan="5" class="pt-4">No Employee available..</td>
+                                    </tr>
+								{% endif %}
 							</tbody>
 						</table>
 					</div>

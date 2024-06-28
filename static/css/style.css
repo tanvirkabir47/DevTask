@@ -244,6 +244,11 @@ header{
     position: fixed;
     padding-top: 100px;
     z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
+    height: 100vh;
 }
 .main-body-layout main{
     transition: .5s;
@@ -251,6 +256,10 @@ header{
     color: #fff;
     padding: 30px;
     margin-top: 100px;
+}
+.company-name h2{
+    font-size: 20px;
+    margin-left: 30px;
 }
 .width-20{
     width: 20%;
@@ -598,6 +607,7 @@ header{
 .project-list .single-project-list{
     background: var(--bg-color);
     padding: 20px 10px;
+    max-width: 400px;
 }
 .project-list .single-project-list h2 a{
     font-size: 25px;
