@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from .models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 
 from django.conf import settings
@@ -82,6 +83,7 @@ def logout_page(request):
     messages.success(request, 'Logged out successfully')
     return redirect('login')
 
+@login_required
 def create_employee(request):
     
     if request.method == 'POST':

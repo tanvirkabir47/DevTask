@@ -12,10 +12,11 @@ def home(request):
 
 @login_required
 def project(request):
-    projects = Project.objects.filter(user=request.user)
-    employees = User.objects.filter(role='employee', company=request.user.company)
+    user_company = request.user.company
+    projects = Project.objects.filter(user__company=user_company)
+    employees = User.objects.filter(role='employee', company=user_company)
     
-    return render(request,'project.html', {'projects':projects, 'employees': employees})
+    return render(request, 'project.html', {'projects': projects, 'employees': employees})
 
 @login_required
 def create_project(request):
