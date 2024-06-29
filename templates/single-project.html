@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} {{project.name}} - DevTask {% endblock title %}
+
+
+{% block main %}
+
+
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="add-employee">
+						<div class="add-employee-header">
+							<h2>{{ project.name }}</h2>
+							<p>{{ project.description }}</p>
+						</div>
+						<form>
+
+						</form>
+					</div>
+				</div>
+
+				<div class="col-12">
+					{% if user.role == 'owner' %}
+						<div class="add-employee-btn">
+							<button data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Task</button>
+						</div>
+					{% endif %}
+
+					<div class="project-list">
+						<div class="row">
+							<div class="col-md-9">
+								<div class="add-task-section">
+									<div class="employee-list">
+										<div class="table-responsive">
+											<table class="table table-responsive-md">
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Description</th>
+														<th>Employees</th>
+														<th>Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													{% if tasks %}
+													    {% for task in tasks %}
+															<tr>
+																<td>{{task.name}}</td>
+																<td>{{ task.description }}</td>
+																<td>
+																	<div class="employee-imgs">
+																		{% for em in task.employee.all %}
+																			<img src="{{ em.image.url }}" title="{{em.first_name}} {{em.last_name}}" alt="">
+																		{% endfor %}
+																	</div>
+																</td>
+																<td>
+																	<div class="d-flex">
+																		<a class="me-1 employee-edit" style="cursor: pointer;">
+																			<i class="fa fa-pencil"></i>
+																		</a>
+																	</div>
+																</td>
+															</tr>
+														{% endfor %}
+
+													{% else %}
+														<tr >
+															<td colspan="5" class="pt-4">No Task available..</td>
+														</tr>
+													{% endif %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="employee-work-on">
+									<h3>Employee who work on this project:</h3>
+									<ul>
+										{% for em in employees %}
+											<li>
+												<img src="{{em.image.url}}" alt="">
+												<div>
+													<h4>{{em.first_name}} {{em.last_name}}</h4>
+													<p>{{ em.position }}</p>
+												</div>
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+						</div>		
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+			<div class="modal-dialog modal-dialog-centered">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h3 class="add-head">Add Task</h3>
+				  <button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+					<i class="fa-solid fa-xmark"></i>
+				  </button>
+				</div>
+				<div class="modal-body">
+				 <div class="employee-create-details">
+					<form method="POST" action="{% url 'create-task' project.slug %}">
+						{% csrf_token %}
+						<div class="">
+							<label for="" class="form-label">Task Name</label>
+							<input type="text" placeholder="Enter Project Name.." name="name" required>
+						</div>
+						<div class="">
+                            <label for="" class="form-label">Task Description</label>
+                            <textarea name="description" rows="5" placeholder="Enter Project Description.." required></textarea>
+                        </div>
+						<div class="">
+							<label for="" class="form-label">Employee Add On Project</label>
+							<select name="employee" id="" multiple>
+								{% for em in employees %}
+									<option value="{{ em.id }}">{{ em.first_name }} {{ em.last_name }}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="">
+                            <label for="" class="form-label">Due Date</label>
+                            <input type="date" name="due_date" required>
+                        </div>
+						<div class="">
+							<button class="primary-button" type="submit">Create</button>
+						</div>
+					</form>
+				 </div>
+			  </div>
+			</div>
+		  </div>
+
+
+
+	{% endblock main %}

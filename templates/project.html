@@ -11,7 +11,7 @@
 					<div class="row">
 						<div class="col-12">
 							<div class="add-employee">
-								<div class="add-employee-header">
+								<div class="add-employee-header mb-3">
 									<h2>Create your Compamy Project !</h2>
 									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, magni. Eaque ratione quis commodi eveniet quaerat.</p>
 								</div>
@@ -22,16 +22,18 @@
 						</div>
 
 						<div class="col-12">
-							<div class="add-employee-btn">
-								<button data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Project</button>
-							</div>
+							{% if user.role == 'owner' %}
+								<div class="add-employee-btn">
+									<button data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add Project</button>
+								</div>
+							{% endif %}
 
 							<div class="project-list">
 								{% if projects %}
 									{% for project in projects %}
 										<div class="single-project-list">
 											<h2>
-												<a href="">{{ project.name }}</a>
+												<a href="{% url 'single-project' project.slug %}">{{ project.name }}</a>
 											</h2>
 											<p>{{ project.description }}</p>
 											<div class="mt-4">
