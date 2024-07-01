@@ -24,6 +24,7 @@ class Task(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='tasks')
     employee = models.ManyToManyField(User, related_name="task")
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_task')
+    status = models.BooleanField(default=False)
     due_date = models.DateTimeField()
     created_at = models.DateTimeField(auto_now_add=True)
     

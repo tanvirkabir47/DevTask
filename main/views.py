@@ -50,11 +50,13 @@ def single_project(request, slug):
     project = get_object_or_404(Project, slug=slug)
     employees = project.employee.all()
     
-    tasks = Task.objects.filter(project=project)
+    tasks = Task.objects.filter(project=project, status=False)
     
-    return render(request,'single-project.html', {'project': project, 'employees': employees, 'tasks': tasks})
+    completed_tasks = Task.objects.filter(project=project, status=True)
+    
+    return render(request,'single-project.html', {'project': project, 'employees': employees, 'tasks': tasks, 'completed_tasks': completed_tasks})
 
-
+@login_required
 def add_employee(request):
     users = User.objects.filter(role = 'employee', company=request.user.company)
     
@@ -94,6 +96,20 @@ def create_task(request, slug):
     return render(request, 'single-project.html', {'project': project})
 
 def task_view(request):
-    return render(request,'my-task.html')
+    tasks = Task.objects.filter(employee=request.user, status=False)
+    completed_tasks = Task.objects.filter(employee=request.user, status=True)
+    
+    return render(request,'my-task.html', {'tasks': tasks, 'completed_tasks': completed_tasks})
+
+@login_required
+def update_task_status(request, id):
+    task = get_object_or_404(Task, id=id)
+    task.status = True
+    task.save()
+    
+    messages.success(request, 'Task Completed successfully!')
+    
+    return redirect('task')
+
 
 

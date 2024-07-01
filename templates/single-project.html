@@ -92,6 +92,27 @@
 										{% endfor %}
 									</ul>
 								</div>
+								<div class="employee-work-on">
+									<h3>Completed Tasks:</h3>
+									<ul>
+										{% if completed_tasks %}
+											{% for completed in completed_tasks %}
+												<li>
+													<div>
+														<h4>{{completed.name}}</h4>
+														<p>{{ completed.project }}</p>
+													</div>
+												</li>
+											{% endfor %}
+										{% else %}
+											<li>
+												<div>
+													<h4>No Task Completed !</h4>
+												</div>
+											</li>
+										{% endif %}
+									</ul>
+								</div>
 							</div>
 						</div>		
 						

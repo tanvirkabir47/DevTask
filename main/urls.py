@@ -9,4 +9,5 @@ urlpatterns = [
     path('employee/', views.add_employee, name='employee'),
     path('task/', views.task_view, name='task'),
     path('create-task/<slug:slug>', views.create_task, name='create-task'),
+    path('update-task-status/<int:id>/', views.update_task_status, name='update-task-status'),
 ]

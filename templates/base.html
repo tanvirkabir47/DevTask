@@ -89,12 +89,15 @@
 								</a>
 							</li>
 						{% endif %}
-						<li>
-							<a href="{% url 'task' %}" {% if request.path == '/task/' %} class="active" {% endif %}>
-								<i class="fa-regular fa-circle-check"></i> 
-								My Task
-							</a>
-						</li>
+
+						{% if user.role != 'owner' %}
+							<li>
+								<a href="{% url 'task' %}" {% if request.path == '/task/' %} class="active" {% endif %}>
+									<i class="fa-regular fa-circle-check"></i> 
+									My Task
+								</a>
+							</li>
+						{% endif %}
 					</ul>
 				</div>
 				<div class="company-name">

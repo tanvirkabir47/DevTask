@@ -22,48 +22,86 @@
 
 			<div class="col-12">
 				<div class="project-list">
-					<div class="single-project-list">
-						<h2>
-							<a href="">AI Model - Backend</a>
-						</h2>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-						<div class="mt-4">
-							<h4>Employee Worked:</h4>
-							<div class="employee-img-list">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
+					<div class="row">
+						<div class="col-md-9">
+							<div class="add-task-section">
+								<div class="employee-list">
+									<div class="table-responsive">
+										<table class="table table-responsive-md">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Project</th>
+													<th>Employees</th>
+													<th>Deadline</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												{% if tasks %}
+													{% for task in tasks %}
+														<tr>
+															<td>{{task.name}}</td>
+															<td>{{ task.description }}</td>
+															<td>{{ task.project }}</td>
+															<td>
+																<div class="employee-imgs">
+																	{% for em in task.employee.all %}
+																		<img src="{{ em.image.url }}" title="{{em.first_name}} {{em.last_name}}" alt="">
+																	{% endfor %}
+																</div>
+															</td>
+															<td>{{ task.due_date | date:'M d, Y' }}</td>
+															<td>
+																<div class="d-flex justify-content-center">
+																	<form method="POST" action="{% url 'update-task-status' task.id %}">
+																		{% csrf_token %}
+																		<button type="submit" class="me-1 employee-edit" style="cursor: pointer; border: none;">
+																			<i class="fa-regular fa-circle-check"></i>
+																		</button>
+																	</form>
+																</div>
+															</td>
+														</tr>
+													{% endfor %}
+
+												{% else %}
+													<tr >
+														<td colspan="5" class="pt-4">No Task available..</td>
+													</tr>
+												{% endif %}
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="single-project-list">
-						<h2>
-							<a href="">AI Model - Backend</a>
-						</h2>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-						<div class="mt-4">
-							<h4>Employee Worked:</h4>
-							<div class="employee-img-list">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
+						<div class="col-md-3">
+							<div class="employee-work-on">
+								<h3>Completed Tasks:</h3>
+								<ul>
+									{% if completed_tasks %}
+										{% for completed in completed_tasks %}
+											<li>
+												<div>
+													<h4>Task Name: {{completed.name}}</h4>
+													<p>Projec: {{ completed.project }}</p>
+												</div>
+											</li>
+										{% endfor %}
+									{% else %}
+										<li>
+											<div>
+												<h4>No Task Completed !</h4>
+											</div>
+										</li>
+									{% endif %}
+								</ul>
 							</div>
 						</div>
-					</div>
-					<div class="single-project-list">
-						<h2>
-							<a href="">AI Model - Backend</a>
-						</h2>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque ratione totam tenetur magni quos accusamus, minima expedita officia debitis temporibus.</p>
-						<div class="mt-4">
-							<h4>Employee Worked:</h4>
-							<div class="employee-img-list">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-								<img src="{% static './images/mahiuddin.png' %}" alt="">
-							</div>
-						</div>
-					</div>
+					</div>		
+					
 				</div>
 				
 			</div>
