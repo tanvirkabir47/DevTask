@@ -40,6 +40,7 @@
 														<th>Name</th>
 														<th>Description</th>
 														<th>Employees</th>
+														<th>Deadline</th>
 														<th>Action</th>
 													</tr>
 												</thead>
@@ -56,10 +57,15 @@
 																		{% endfor %}
 																	</div>
 																</td>
+																<td>{{ task.due_date | date:'d M, Y' }}</td>
 																<td>
-																	<div class="d-flex">
-																		<a class="me-1 employee-edit" style="cursor: pointer;">
+																	<div class="d-flex justify-content-center">
+																		<a data-bs-toggle="modal" data-bs-target="#examModal{{task.id}}" class="me-1 employee-edit" style="cursor: pointer;">
 																			<i class="fa fa-pencil"></i>
+																		</a>
+
+																		<a data-bs-toggle="modal" data-bs-target="#deleteModal{{task.id}}" class="employee-delete" style="cursor: pointer;">
+																			<i class="fa fa-trash"></i>
 																		</a>
 																	</div>
 																</td>
@@ -124,7 +130,88 @@
 
 
 
-		<!-- Modal -->
+
+		
+	<!-- Update Task Modal -->
+
+		{% for ts in tasks %}
+		  
+			<div class="modal fade" id="examModal{{ts.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+					  <div class="modal-header">
+						<h3 class="add-head">Update Task</h3>
+						<button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+						  <i class="fa-solid fa-xmark"></i>
+						</button>
+					  </div>
+					  <div class="modal-body">
+					   <div class="employee-create-details">
+						  <form method="POST" action="{% url 'update-task' ts.id %}">
+							  {% csrf_token %}
+							  <div class="">
+								  <label for="" class="form-label">Task Name</label>
+								  <input type="text" value="{{ts.name}}" name="name">
+							  </div>
+							  <div class="">
+								  <label for="" class="form-label">Task Description</label>
+								  <textarea name="description" rows="5">{{ts.description}}</textarea>
+							  </div>
+							  <div class="">
+								  <label for="" class="form-label">Employee Add On Project</label>
+								  <select name="employee" id="" multiple>
+									  {% for em in employees %}
+										  <option value="{{ em.id }}">{{ em.first_name }} {{ em.last_name }}</option>
+									  {% endfor %}
+								  </select>
+							  </div>
+							  <div class="">
+								  <label for="" class="form-label">Due Date</label>
+								  <input type="date" name="due_date" value="{{ts.due_date|date:'Y-m-d'}}">
+							  </div>
+							  <div class="">
+								  <button class="primary-button" type="submit">Update</button>
+							  </div>
+						  </form>
+					   </div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		
+		{% endfor %}
+
+
+	<!-- Delete Task Modal -->
+
+		{% for tk in tasks %}
+		  
+			<div class="modal fade" id="deleteModal{{tk.id}}" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h3 class="add-head">Remove Task</h3>
+							<button type="button" class="mo-cl" data-bs-dismiss="modal" aria-label="Close">
+								<i class="fa-solid fa-xmark"></i>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="employee-create-details">
+								<label>Do you want to Remove <strong>"{{tk.name}}"</strong> from your project?</label>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Close</button>
+							<a href="{% url 'delete-task' tk.id %}" class="btn btn-sm btn-danger">Remove</a>
+						</div>
+					 </div>
+				</div>
+			</div>
+		
+		{% endfor %}
+		  
+		
+		<!-- Create Task Modal -->
 		<div class="modal fade" id="exampleModal" data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="false">
 			<div class="modal-dialog modal-dialog-centered">
 			  <div class="modal-content">
@@ -166,7 +253,9 @@
 			  </div>
 			</div>
 		  </div>
+		</div>
 
 
+		 	
 
 	{% endblock main %}

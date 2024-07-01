@@ -95,6 +95,34 @@ def create_task(request, slug):
 
     return render(request, 'single-project.html', {'project': project})
 
+@login_required
+def update_task(request, id):
+    task = get_object_or_404(Task, id=id)
+    slug = task.project.slug
+    
+    if request.method == 'POST':
+        task.name = request.POST.get('name')
+        task.description = request.POST.get('description')
+        task.due_date = request.POST.get('due_date')
+        
+        task.save()
+        
+        messages.success(request, 'Task updated successfully!')
+        
+        return redirect(reverse('single-project', kwargs={'slug': slug}))
+    
+@login_required
+def delete_task(request, id):
+    task = get_object_or_404(Task, id=id)
+    slug = task.project.slug
+    
+    task.delete()
+    
+    messages.success(request, 'Task deleted successfully!')
+    
+    return redirect(reverse('single-project', kwargs={'slug': slug}))
+
+
 def task_view(request):
     tasks = Task.objects.filter(employee=request.user, status=False)
     completed_tasks = Task.objects.filter(employee=request.user, status=True)
