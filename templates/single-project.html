@@ -59,15 +59,26 @@
 																</td>
 																<td>{{ task.due_date | date:'d M, Y' }}</td>
 																<td>
-																	<div class="d-flex justify-content-center">
-																		<a data-bs-toggle="modal" data-bs-target="#examModal{{task.id}}" class="me-1 employee-edit" style="cursor: pointer;">
-																			<i class="fa fa-pencil"></i>
-																		</a>
+																	{% if user.role == 'owner' %}
+																		<div class="d-flex justify-content-center">
+																			<a data-bs-toggle="modal" data-bs-target="#examModal{{task.id}}" class="me-1 employee-edit" style="cursor: pointer;">
+																				<i class="fa fa-pencil"></i>
+																			</a>
 
-																		<a data-bs-toggle="modal" data-bs-target="#deleteModal{{task.id}}" class="employee-delete" style="cursor: pointer;">
-																			<i class="fa fa-trash"></i>
-																		</a>
-																	</div>
+																			<a data-bs-toggle="modal" data-bs-target="#deleteModal{{task.id}}" class="employee-delete" style="cursor: pointer;">
+																				<i class="fa fa-trash"></i>
+																			</a>
+																		</div>
+																	{% else %}
+																		<div class="d-flex justify-content-center">
+																			<form method="POST" action="{% url 'update-task-status' task.id %}">
+																				{% csrf_token %}
+																				<button type="submit" class="me-1 employee-edit" style="cursor: pointer; border: none;">
+																					<i class="fa-regular fa-circle-check"></i>
+																				</button>
+																			</form>
+																		</div>
+																	{% endif %}
 																</td>
 															</tr>
 														{% endfor %}
@@ -105,8 +116,8 @@
 											{% for completed in completed_tasks %}
 												<li>
 													<div>
-														<h4>{{completed.name}}</h4>
-														<p>{{ completed.project }}</p>
+														<h4>Task Name: {{completed.name}}</h4>
+														<p>Project: {{ completed.project }}</p>
 													</div>
 												</li>
 											{% endfor %}

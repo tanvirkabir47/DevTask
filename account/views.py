@@ -161,3 +161,34 @@ def delete_employee(request, id):
     remove_employee.delete()
     
     return redirect('employee')
+
+
+@login_required
+def profile_view(request):
+    
+    user = User.objects.get(username=request.user.username)
+    
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        image = request.FILES.get('image')
+        
+        if User.objects.filter(email=email).exclude(username=request.user.username).exists():
+            messages.error(request, 'Email already exists. Please use a different email address.')
+            return redirect('profile')
+        
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        
+        if image:
+            user.image = image
+            
+        user.save()
+        
+        messages.success(request, 'Profile updated successfully!')
+        
+        return redirect('profile')
+            
+    return render(request, 'my-account.html', {'user': user})

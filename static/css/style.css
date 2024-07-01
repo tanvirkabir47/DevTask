@@ -683,3 +683,35 @@ header{
 .employee-imgs img:first-child{
     margin-left: 0;
 }
+
+.user-profile-edit{
+    background: var(--bg-color);
+    padding: 15px;
+}
+.user-profile-edit .single-user-input{
+    margin-top: 20px;
+}
+.user-profile-edit .single-user-input label{
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 32px;
+    color: var(--single-blog-text);
+    cursor: pointer;
+    margin: 0;
+}
+.user-profile-edit .single-user-input input, 
+.user-profile-edit .single-user-input textarea,
+.user-profile-edit .single-user-input select{
+    width: 100%;
+    padding: 12px 15px;
+    border: none;
+    background: #000;
+    margin-bottom: 20px;
+    color: #fff;;
+}
+.user-profile-edit .single-user-input img{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%;
+}

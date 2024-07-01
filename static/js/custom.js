@@ -66,3 +66,14 @@ menuBtn.addEventListener('click', ()=>{
     aside.classList.toggle('width-0')
     main.classList.toggle('margin-20')
 })
+
+
+
+// User profile image upload
+
+const profileImageUpload = document.getElementById("profile-pic");
+const inputFile = document.getElementById("input-file");
+
+inputFile.onchange = function(){
+    profileImageUpload.src = URL.createObjectURL(inputFile.files[0])
+}
