@@ -175,7 +175,7 @@ def profile_view(request):
         image = request.FILES.get('image')
         
         if User.objects.filter(email=email).exclude(username=request.user.username).exists():
-            messages.error(request, 'Email already exists. Please use a different email address.')
+            messages.error(request, 'Email already exists. Please use a different E-mail address.')
             return redirect('profile')
         
         user.first_name = first_name
